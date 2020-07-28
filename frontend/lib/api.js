@@ -2,9 +2,9 @@
 
 const cloudbase = require("@cloudbase/node-sdk");
 const config = {
-    secretId: process.env.secretId, // 前往「腾讯云控制台」-「访问密钥」获取
-    secretKey: process.env.secretKey, // 前往「腾讯云控制台」-「访问密钥」获取
-    env: process.env // 前往「腾讯云控制台」-「云开发 CloudBase」获取
+    secretId: process.env.SECRET_ID, // 前往「腾讯云控制台」-「访问密钥」获取
+    secretKey: process.env.SECRET_KEY, // 前往「腾讯云控制台」-「访问密钥」获取
+    env: process.env.ENV // 前往「腾讯云控制台」-「云开发 CloudBase」获取
 };
 
 const app = cloudbase.init(config);
