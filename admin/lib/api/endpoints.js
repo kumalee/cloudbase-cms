@@ -1,3 +1,5 @@
+const subdomain = process.env.NEXT_PUBLIC_ENV;
+const host = `https://${subdomain}.service.tcloudbase.com`;
 export default {
-    login: `https://${envId}.service.tcloudbase.com/tcb-ext-cms-auth/login`
+    login: `${host}/tcb-ext-cms-auth/login`
 }
