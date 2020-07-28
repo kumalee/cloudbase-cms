@@ -4,7 +4,7 @@
   "description": "tecent cloudbase develop template for website",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 4001",
     "build": "next build",
     "start": "next start",
     "export": "next export"
