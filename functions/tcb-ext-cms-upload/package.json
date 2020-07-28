@@ -1,0 +1,35 @@
+{
+  "name": "upload",
+  "version": "1.0.0",
+  "description": "CMS图片上传",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=local nodemon index.js"
+  },
+  "dependencies": {
+    "@cloudbase/node-sdk": "^2.0.2",
+    "@koa/cors": "^2.2.3",
+    "@koa/router": "^8.0.8",
+    "dayjs": "^1.8.28",
+    "koa": "^2.11.0",
+    "koa-body": "^4.2.0",
+    "koa-bodyparser": "^4.2.1",
+    "serverless-http": "^2.3.0"
+  },
+  "author": "Erik Qin",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "nodemonConfig": {
+    "ext": "js",
+    "restartable": "rs",
+    "verbose": true,
+    "ignore": [
+      "node_modules/**",
+      "test/**",
+      ".git",
+      ".log"
+    ]
+  }
+}

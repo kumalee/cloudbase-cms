@@ -1,0 +1,13 @@
+{
+    "envId": "envId",
+    "functions": [
+      {
+        "name": "db-test",
+        "timeout": 60,
+        "runtime": "Nodejs10.15",
+        "installDependency": false,
+        "handler": "index.main",
+        "ignore": [".git"]
+      }
+    ]
+}

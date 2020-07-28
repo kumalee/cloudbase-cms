@@ -1,0 +1,20 @@
+@import "tailwindcss/base";
+
+/* Write your own custom base styles here */
+
+/* Start purging... */
+@import "tailwindcss/components";
+/* Stop purging. */
+
+/* Write you own custom component styles here */
+
+/* Start purging... */
+@import "tailwindcss/utilities";
+/* Stop purging. */
+
+/* Your own custom utilities */
+
+/* Your own css here */
+@import "./reset.css";
+@import "./menu.css";
+@import "./page-about.css";

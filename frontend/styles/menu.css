@@ -1,0 +1,42 @@
+.ant-menu-inline .ant-menu-item-selected::after {
+  display: none;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: transparent;
+  color: #000;
+}
+.ant-menu-inline .ant-menu-item,
+.ant-menu-inline .ant-menu-submenu-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.55);
+}
+.ant-menu-item:hover,
+.ant-menu-item-active,
+.ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+.ant-menu-submenu-active, .ant-menu-submenu-title:hover {
+  color: #000;
+}
+.ant-menu-submenu-vertical > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after,
+.ant-menu-submenu-vertical-left > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after,
+.ant-menu-submenu-vertical-right > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after,
+.ant-menu-submenu-inline > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after,
+.ant-menu-submenu-vertical > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before,
+.ant-menu-submenu-vertical-left > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before,
+.ant-menu-submenu-vertical-right > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before,
+.ant-menu-submenu-inline > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before {
+  background: #000;
+}
+.ant-menu-submenu-inline > .ant-menu-submenu-title .ant-menu-submenu-arrow {
+  right: 36px;
+}
+
+.ant-menu-item a {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.ant-menu-item-selected a,
+.ant-menu-item a:hover,
+.ant-menu-item-selected a:hover {
+  color: rgba(0, 0, 0, 1);
+}

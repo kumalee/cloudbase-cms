@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "./static/css/main.47fc05c6.chunk.css",
+    "main.js": "./static/js/main.bd790fb7.chunk.js",
+    "main.js.map": "./static/js/main.bd790fb7.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.e43d6261.js",
+    "runtime-main.js.map": "./static/js/runtime-main.e43d6261.js.map",
+    "static/js/2.536a9546.chunk.js": "./static/js/2.536a9546.chunk.js",
+    "static/js/2.536a9546.chunk.js.map": "./static/js/2.536a9546.chunk.js.map",
+    "static/js/3.01c757c0.chunk.js": "./static/js/3.01c757c0.chunk.js",
+    "static/js/3.01c757c0.chunk.js.map": "./static/js/3.01c757c0.chunk.js.map",
+    "static/js/4.e456eb20.chunk.js": "./static/js/4.e456eb20.chunk.js",
+    "static/js/4.e456eb20.chunk.js.map": "./static/js/4.e456eb20.chunk.js.map",
+    "static/css/5.7e28aa6b.chunk.css": "./static/css/5.7e28aa6b.chunk.css",
+    "static/js/5.28174caf.chunk.js": "./static/js/5.28174caf.chunk.js",
+    "static/js/5.28174caf.chunk.js.map": "./static/js/5.28174caf.chunk.js.map",
+    "static/js/6.1cce7fa2.chunk.js": "./static/js/6.1cce7fa2.chunk.js",
+    "static/js/6.1cce7fa2.chunk.js.map": "./static/js/6.1cce7fa2.chunk.js.map",
+    "static/js/7.7ef00981.chunk.js": "./static/js/7.7ef00981.chunk.js",
+    "static/js/7.7ef00981.chunk.js.map": "./static/js/7.7ef00981.chunk.js.map",
+    "index.html": "./index.html",
+    "precache-manifest.ef17fb19c436e1e4ef20eef6f42461d7.js": "./precache-manifest.ef17fb19c436e1e4ef20eef6f42461d7.js",
+    "service-worker.js": "./service-worker.js",
+    "static/css/5.7e28aa6b.chunk.css.map": "./static/css/5.7e28aa6b.chunk.css.map",
+    "static/css/main.47fc05c6.chunk.css.map": "./static/css/main.47fc05c6.chunk.css.map",
+    "static/js/2.536a9546.chunk.js.LICENSE.txt": "./static/js/2.536a9546.chunk.js.LICENSE.txt",
+    "static/js/3.01c757c0.chunk.js.LICENSE.txt": "./static/js/3.01c757c0.chunk.js.LICENSE.txt",
+    "static/js/4.e456eb20.chunk.js.LICENSE.txt": "./static/js/4.e456eb20.chunk.js.LICENSE.txt",
+    "static/js/5.28174caf.chunk.js.LICENSE.txt": "./static/js/5.28174caf.chunk.js.LICENSE.txt",
+    "static/media/fonts.css": "./static/media/Material_Icons-400-fallback1.a2bf9925.woff2",
+    "static/media/index.css": "./static/media/material-icon.0509ab09.woff2",
+    "static/media/tcb-logo.svg": "./static/media/tcb-logo.b050342e.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e43d6261.js",
+    "static/js/3.01c757c0.chunk.js",
+    "static/css/main.47fc05c6.chunk.css",
+    "static/js/main.bd790fb7.chunk.js"
+  ]
+}
