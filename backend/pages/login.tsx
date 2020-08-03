@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Alert, Checkbox } from 'antd';
+import tcb from 'tcb-js-sdk';
+import axios from 'axios';
+import endpoints from '../services/endpoints';
 import Link from 'next/link';
 import LayoutUser from '../components/layout/user';
 import LoginFrom from '../components/pages/login';
-import { useAccountLogin } from '../services';
 import '../assets/login.less';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginFrom;
@@ -21,6 +23,7 @@ const LoginMessage = ({ content }) => (
 
 const Login = props => {
   const [autoLogin, setAutoLogin] = useState(true);
+  const [error, setError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [type, setType] = useState('account');
 
@@ -30,8 +33,23 @@ const Login = props => {
     //   type: 'userAndlogin/login',
     //   payload: { ...values, type },
     // });
-    console.log('values: ', values);
-    const res = await useAccountLogin(values);
+    setSubmitting(true);
+    const app = tcb.init({
+        env: process.env.NEXT_PUBLIC_ENV
+    });
+    const auth = app.auth({
+        persistence: 'local'
+    });
+    const ticketRes = await axios.post(endpoints.login, {
+        userName: values.userName,
+        password: values.password
+    });
+    setSubmitting(false);
+    if (ticketRes.data.code === 'LOGIN_WRONG_INPUT') {
+        setError(true);
+    } else {
+        const res = await auth.signInWithTicket(ticketRes.data.ticket);
+    }
   };
 
   return (
@@ -39,6 +57,9 @@ const Login = props => {
         <div className="main">
             <LoginFrom activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
                 <Tab key="account" tab="账户密码登录">
+                {error && !submitting && (
+                    <LoginMessage content="用户名或密码错误" />
+                )}
                 <UserName
                     name="userName"
                     placeholder="用户名"
@@ -61,9 +82,6 @@ const Login = props => {
                 />
                 </Tab>
                 <Tab key="mobile" tab="手机号登录">
-                {/* {status === 'error' && loginType === 'mobile' && !submitting && (
-                    <LoginMessage content="验证码错误" />
-                )} */}
                 <Mobile
                     name="mobile"
                     placeholder="手机号"

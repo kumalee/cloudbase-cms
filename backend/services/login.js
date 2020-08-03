@@ -1,37 +1,21 @@
-import React, { useState, useEffect } from "react";
-import tcb from 'tcb-js-sdk';
+import { useState, useEffect } from "react";
 import axios from 'axios';
 import endpoints from './endpoints';
-import useSWR, { mutate } from 'swr'
+// import useSWR, { mutate } from 'swr'
 
-const useAuth = function(envId) {
-    const [app, setApp] = useState();
-    const [auth, setAuth] = useState();
-    useEffect(() => {
-        setApp(tcb.init({
-            env: envId
-        }));
-        setAuth(app.auth({
-            persistence: 'local'
-        }));
-    }, [envId]);
-    return [app, auth];
-}
-
-
-export async function useAccountLogin(params) {
-    const [ticket, setTicket] = useState();
+export function useAccountLogin(auth, params) {
     const [result, setResult] = useState();
-    useEffect(async () => {
-        const ticketRes = await axios.post(endpoints.login, {
-            userName: params.userName,
-            password: params.password
-        });
-        setTicket(ticketRes.data.ticket);
-        const [app, auth] = useAuth(process.env.NEXT_PUBLIC_ENV);
-        const res = await auth.signInWithTicket(ticket);
-        setResult(res);
-        console.log('result', res);    
+    useEffect(() => {
+        async function login() {
+            const ticketRes = await axios.post(endpoints.login, {
+                userName: params.userName,
+                password: params.password
+            });
+            const res = await auth.signInWithTicket(ticketRes.data.ticket);
+            setResult(res);
+            console.log('result', res);
+        }
+        login();
     }, [params]);
     return result;
 }
