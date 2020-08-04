@@ -5,6 +5,7 @@ import {
   SmileOutlined,
   SettingOutlined,
   PlaySquareOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons'
 
 import { Route, MenuDataItem } from '@ant-design/pro-layout/lib/typings'
@@ -19,21 +20,26 @@ const ROUTES: Route = {
   routes: [
     {
       path: '/',
-      name: 'Welcome',
+      name: '内容管理',
       icon: <SmileOutlined />,
       routes: [
         {
-          path: '/welcome',
-          name: 'Account Settings',
+          path: '/products',
+          name: '作品',
           icon: <SettingOutlined />,
         },
       ],
     },
     {
-      path: '/example',
-      name: 'Example Page',
+      path: '/profile',
+      name: '个人信息',
       icon: <PlaySquareOutlined />,
     },
+    {
+      path: '/logout',
+      name: '退出',
+      icon: <LogoutOutlined /> 
+    }
   ],
 }
 

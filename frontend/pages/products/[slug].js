@@ -12,7 +12,6 @@ import { useRouter } from 'next/router'
 export default function Index() {
   const router = useRouter()
   const { slug } = router.query
-  console.log('slug:', slug);
   return (
     <>
       <Layout>

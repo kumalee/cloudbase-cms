@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { Alert, Checkbox } from 'antd';
-import tcb from 'tcb-js-sdk';
-import axios from 'axios';
-import endpoints from '../services/endpoints';
 import Link from 'next/link';
-import LayoutUser from '../components/layout/user';
+import { useRouter } from 'next/router';
+import LayoutUser from '../layouts/user';
 import LoginFrom from '../components/pages/login';
+import { getAuthTicket, signIn } from '../services';
 import '../assets/login.less';
 
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginFrom;
+const { UserName, Password, Submit } = LoginFrom;
 
 const LoginMessage = ({ content }) => (
   <Alert
@@ -26,29 +25,17 @@ const Login = props => {
   const [error, setError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [type, setType] = useState('account');
+  const router = useRouter();
 
   const handleSubmit = async values => {
-    // const { dispatch } = props;
-    // dispatch({
-    //   type: 'userAndlogin/login',
-    //   payload: { ...values, type },
-    // });
     setSubmitting(true);
-    const app = tcb.init({
-        env: process.env.NEXT_PUBLIC_ENV
-    });
-    const auth = app.auth({
-        persistence: 'local'
-    });
-    const ticketRes = await axios.post(endpoints.login, {
-        userName: values.userName,
-        password: values.password
-    });
+    const ticketRes = await getAuthTicket(values);
     setSubmitting(false);
-    if (ticketRes.data.code === 'LOGIN_WRONG_INPUT') {
-        setError(true);
+    if (ticketRes.data.code) {
+        setError(ticketRes.data.message);
     } else {
-        const res = await auth.signInWithTicket(ticketRes.data.ticket);
+        await signIn(ticketRes.data.data.ticket);
+        router.push('/')
     }
   };
 
@@ -56,9 +43,8 @@ const Login = props => {
     <LayoutUser>
         <div className="main">
             <LoginFrom activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
-                <Tab key="account" tab="账户密码登录">
                 {error && !submitting && (
-                    <LoginMessage content="用户名或密码错误" />
+                    <LoginMessage content={error} />
                 )}
                 <UserName
                     name="userName"
@@ -80,8 +66,7 @@ const Login = props => {
                     },
                     ]}
                 />
-                </Tab>
-                <Tab key="mobile" tab="手机号登录">
+                {/* <Tab key="mobile" tab="手机号登录">
                 <Mobile
                     name="mobile"
                     placeholder="手机号"
@@ -109,7 +94,7 @@ const Login = props => {
                     },
                     ]}
                 />
-                </Tab>
+                </Tab> */}
                 <div>
                 <Checkbox checked={autoLogin} onChange={e => setAutoLogin(e.target.checked)}>
                     自动登录
