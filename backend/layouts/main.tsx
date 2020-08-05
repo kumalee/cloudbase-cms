@@ -15,6 +15,7 @@ import {
 
 import { Route, MenuDataItem } from '@ant-design/pro-layout/lib/typings'
 import { SiderMenuProps } from '@ant-design/pro-layout/lib/SiderMenu/SiderMenu'
+import BreadCrumb from '../components/breadcrumb'
 
 const ProLayout = dynamic(() => import('@ant-design/pro-layout'), {
   ssr: false,
@@ -25,7 +26,7 @@ const ROUTES: Route = {
   routes: [
     {
       path: '/dashboard',
-      name: '仪表盘',
+      name: '统计分析',
       icon: <LineChartOutlined />,
     },
     {
@@ -102,6 +103,7 @@ export default function Main({ children }) {
       menuItemRender={menuItemRender}
       menuHeaderRender={menuHeaderRender}
     >
+      <BreadCrumb />
       {children}
     </ProLayout>
   )
