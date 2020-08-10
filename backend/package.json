@@ -9,6 +9,7 @@
   "dependencies": {
     "@ant-design/icons": "4.1.0",
     "@ant-design/pro-layout": "5.0.10",
+    "@ant-design/pro-table": "^2.4.4",
     "@zeit/next-less": "^1.0.1",
     "antd": "^4.2.0",
     "axios": "^0.19.2",

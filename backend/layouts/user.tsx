@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import '../assets/layout-user.less';
+import '../assets/layouts/layout-user.less';
 
 const UserLayout = props => {
   const {

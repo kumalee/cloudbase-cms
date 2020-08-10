@@ -1,15 +1,17 @@
-import { Breadcrumb } from 'antd';
-import { HomeOutlined, UserOutlined } from '@ant-design/icons';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { Breadcrumb } from 'antd'
+import { HomeOutlined, UserOutlined } from '@ant-design/icons'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import './index.less'
 
 const breadcrumbNameMap = {
     '/dashboard': '统计分析',
+    '/operate': '运营',
     '/content': '内容管理',
     '/webhooks': 'Webhooks',
     '/profile': '个人信息',
-    '/logout': '退出'
-};
+    '/logout': '退出',
+}
 
 const BreadCrumb = () => {
     const router = useRouter();
@@ -30,7 +32,9 @@ const BreadCrumb = () => {
         </Breadcrumb.Item>,
     ].concat(extraBreadcrumbItems);
     return (
-        <Breadcrumb>{breadcrumbItems}</Breadcrumb>
+        <div className="custom-breadcrumb">
+            <Breadcrumb>{breadcrumbItems}</Breadcrumb>
+        </div>
     )
 }
 

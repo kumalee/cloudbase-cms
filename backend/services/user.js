@@ -1,19 +1,6 @@
 import axios from 'axios'
-import tcb from 'tcb-js-sdk'
+import { initTcb } from './init'
 import endpoints from './endpoints'
-
-const initTcb = () => {
-    const app = tcb.init({
-        env: process.env.NEXT_PUBLIC_ENV
-    })
-    const auth = app.auth({
-        persistence: 'local'
-    })
-    return {
-        app,
-        auth,
-    }
-}
 
 export const getAuthTicket = async (values) => {
     const ticketRes = await axios.post(endpoints.login, {
