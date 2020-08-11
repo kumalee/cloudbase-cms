@@ -1,4 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/router'
 import { Button, Table, Space } from 'antd';
 import { getCollections } from '../../../services'
 import { useEffect, useState } from 'react';
@@ -39,7 +40,7 @@ const columns = [
     title: 'Action',
     render: (text, record) => (
       <Space size="middle">
-        <a href="">Edit</a>
+        <a href={`/content_edit?mode=edit&id=${record.id}`}>Edit</a>
         <a href="">Delete</a>
       </Space>
     ),
@@ -49,6 +50,7 @@ const columns = [
 const TableCollection = props => {
   const [data, setData] = useState([])
   const [total, setToal] = useState(0)
+  const router = useRouter()
   useEffect(() => {
     async function setDataSource() {
       const res = await getCollections()
@@ -65,7 +67,10 @@ const TableCollection = props => {
       pagination={{ total }}
       rowKey="id"
       title={() => (
-        <Button type="primary">
+        <Button type="primary" onClick={() => router.push({
+          pathname: '/content_edit',
+          query: { mode: 'new' },
+        })}>
           <PlusOutlined />Add a row
         </Button>
       )}
