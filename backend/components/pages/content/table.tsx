@@ -53,8 +53,7 @@ const TableCollection = props => {
   const router = useRouter()
   useEffect(() => {
     async function setDataSource() {
-      const res = await getCollections()
-      console.log(res);
+      const res = await getCollections({})
       setData(res.result.data)
       setToal(res.result.total)
     }

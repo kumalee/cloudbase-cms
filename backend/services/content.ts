@@ -1,5 +1,6 @@
 import { initTcb } from './init'
 
+// get all collection
 export const getCollections = async () => {
   const { app } = initTcb();
   return await app.callFunction({
@@ -11,13 +12,43 @@ export const getCollections = async () => {
         "filter": {},
         "pagination": {
           "page":1,
-          "perPage":100
+          "perPage":100,
         },
         "sort":{
           "field":"order",
-          "order":"DESC"
-        }
+          "order":"DESC",
+        },
       }
     }
-  });
+  })
+}
+
+// get one collection
+export const getOneCollection = async (id: string) => {
+  const { app } = initTcb()
+  return await app.callFunction({
+    name: 'tcb-ext-cms-api',
+    data: {
+      operate: "getOne",
+      resource: "tcb-ext-cms-contents",
+      params: {
+        id,
+      }
+    }
+  })
+}
+
+// get connect content of provided ids
+export const GetConnectCollections = async (ids: string[]) => {
+  const { app } = initTcb()
+  return await app.callFunction({
+    name: 'tcb-ext-cms-api',
+    data: {
+      operate: 'getMany',
+      resource: "tcb-ext-cms-contents",
+      params: {
+        ids
+      }
+    }
+  })
 }
