@@ -2,6 +2,7 @@ import MainLayout from '../layouts/main'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { getOneCollection } from '../services'
+import FormContent from '../components/form/content'
 
 type Field = {
   fieldLabel: string,
@@ -49,6 +50,7 @@ export default function Content() {
     <MainLayout>
       <div>
         Content Edit
+        <FormContent />
         {collection ? (
           <p>
             {collection.id}<br />
@@ -59,6 +61,13 @@ export default function Content() {
             {collection.createTime}<br />
             {collection.updateTime}<br />
             {collection.order}<br />
+            {collection.fields.map(field => (
+              <p>
+                {field.fieldLabel}<br />
+                {field.fieldName}<br />
+                {field.fieldType}<br />
+              </p>
+            ))}
           </p>
         ) : null}
       </div>
