@@ -13,7 +13,7 @@ import {
 import { Route, MenuDataItem } from '@ant-design/pro-layout/lib/typings'
 import { SiderMenuProps } from '@ant-design/pro-layout/lib/SiderMenu/SiderMenu'
 import BreadCrumb from '../components/breadcrumb'
-import '../assets/layouts/layout-main.less'
+import '@/less/layouts/layout-main.less'
 
 const ProLayout = dynamic(() => import('@ant-design/pro-layout'), {
   ssr: false,

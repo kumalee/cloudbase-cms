@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import LayoutUser from '../layouts/user';
 import LoginFrom from '../components/pages/login';
 import { getAuthTicket, signIn } from '../services';
-import '../assets/login.less';
+import '@/less/login.less';
 
 const { UserName, Password, Submit } = LoginFrom;
 

@@ -1,8 +1,8 @@
-import MainLayout from '../layouts/main'
+import MainLayout from '@/layouts/main'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { getOneCollection } from '../services'
-import FormContent from '../components/form/content'
+import { getOneCollection } from '@/services/content'
+import FormContent from '@/components/forms/content'
 
 type Field = {
   fieldLabel: string,
@@ -49,27 +49,12 @@ export default function Content() {
   return (
     <MainLayout>
       <div>
-        Content Edit
-        <FormContent />
-        {collection ? (
-          <p>
-            {collection.id}<br />
-            {collection.icon}<br />
-            {collection.label}<br />
-            {collection.collectionName}<br />
-            {collection.description}<br />
-            {collection.createTime}<br />
-            {collection.updateTime}<br />
-            {collection.order}<br />
-            {collection.fields.map(field => (
-              <p>
-                {field.fieldLabel}<br />
-                {field.fieldName}<br />
-                {field.fieldType}<br />
-              </p>
-            ))}
-          </p>
-        ) : null}
+        {mode === 'new' ? 'New' : 'Edit'} Content
+        {id && collection ? (
+            <FormContent collection={collection} />
+        ) : (
+          <FormContent />
+        )}
       </div>
     </MainLayout>
   )

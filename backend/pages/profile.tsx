@@ -3,8 +3,8 @@ import {
   Select,
 } from 'antd'
 
-import MainLayout from '../layouts/main'
-import { getCurrentUser, hasLoginState } from '../services'
+import MainLayout from '@/layouts/main'
+import { getCurrentUser, hasLoginState } from '@/services/user'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
