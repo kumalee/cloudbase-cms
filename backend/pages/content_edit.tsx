@@ -1,6 +1,7 @@
-import MainLayout from '@/layouts/main'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { Skeleton } from 'antd'
+import MainLayout from '@/layouts/main'
 import { getOneCollection } from '@/services/content'
 import FormContent from '@/components/forms/content'
 
@@ -50,9 +51,9 @@ export default function Content() {
     <MainLayout>
       <div>
         {mode === 'new' ? 'New' : 'Edit'} Content
-        {id && collection ? (
-            <FormContent collection={collection} />
-        ) : (
+        {id ? (
+          collection ? <FormContent collection={collection} /> : <Skeleton />
+        ): (
           <FormContent />
         )}
       </div>

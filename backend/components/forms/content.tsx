@@ -1,12 +1,13 @@
 import { Form, Input, Button, Checkbox } from 'antd'
 import { SContent } from '@/models/content.schema'
+import RenderFormItems from './field'
 
 const layout = {
-  labelCol: { span: 8 },
+  labelCol: { span: 3 },
   wrapperCol: { span: 16 },
 }
 const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+  wrapperCol: { offset: 3, span: 16 },
 }
 
 const FormContent = props => {
@@ -28,14 +29,9 @@ const FormContent = props => {
       onFinishFailed={onFinishFailed}
     >
       {SContent.map(content => {
+        const { name, label } = content
         return (
-          <Form.Item
-            key={content.name}
-            label={content.label}
-            name={content.name}
-          >
-            <Input />
-          </Form.Item>
+          <RenderFormItems key={name} name={name} label={label} />
         )
       })}
 

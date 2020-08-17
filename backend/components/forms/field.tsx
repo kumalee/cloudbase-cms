@@ -3,9 +3,9 @@ import moment from 'moment'
 
 const DateTime = props => {
   let defaultValue = null;
-  const { value, disabled, ...restProps } = props
-  if (value) {
-    defaultValue = moment(value)
+  const { initialValue, disabled, ...restProps } = props
+  if (initialValue) {
+    defaultValue = moment(initialValue)
   }
   return (
     <DatePicker defaultValue={defaultValue} disabled={disabled} {...restProps} />
@@ -13,21 +13,22 @@ const DateTime = props => {
 }
 
 const RenderFormItems = props => {
-  const { key, ...restProps } = props;
-  if (['createTime', 'updateTime', 'id'].includes(key)) {
+  const { name, label, ...restProps } = props;
+  if (['createTime', 'updateTime', 'id'].includes(name)) {
     return (
       <Form.Item
-        label={key}
-        name={key}
+        label={label}
+        name={name}
       >
-        { key === 'id' ? <Input {...restProps} disabled={true} /> :<DateTime {...restProps} disabled={true} />}
+        <Input {...restProps} disabled />
+        {/* { name === 'id' ? <Input {...restProps} disabled={true} /> :<DateTime {...restProps} disabled={true} />} */}
       </Form.Item>
     );
-  } else if (key === 'order') {
+  } else if (name === 'order') {
     return (
       <Form.Item
-        label={key}
-        name={key}
+        label={label}
+        name={name}
       >
         <InputNumber {...restProps} />
       </Form.Item>
@@ -35,11 +36,13 @@ const RenderFormItems = props => {
   } else {
     return (
       <Form.Item
-        label={key}
-        name={key}
+        label={label}
+        name={name}
       >
         <Input {...restProps} />
       </Form.Item>
     )
   }
 }
+
+export default RenderFormItems
