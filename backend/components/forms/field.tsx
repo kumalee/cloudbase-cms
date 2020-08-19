@@ -5,7 +5,7 @@ export const RenderSubForm = props => {
   const { fields } = props;
   return fields.map((field, i) => (
     <Form
-      layout="vertical"
+      layout="inline"
       key={`form-${i}`}
       name={`advanced-${i}`}
       initialValues={field}

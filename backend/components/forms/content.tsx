@@ -15,7 +15,7 @@ const FormContent = props => {
   return (
     <>
       <Form
-        layout="vertical"
+        layout="inline"
         name="basic"
         initialValues={collection}
         onFinish={onFinish}
