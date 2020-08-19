@@ -1,14 +1,6 @@
-import { Form, Input, Button, Checkbox } from 'antd'
+import { Space, Form, Button } from 'antd'
 import { SContent } from '@/models/content.schema'
-import RenderFormItems from './field'
-
-const layout = {
-  labelCol: { span: 3 },
-  wrapperCol: { span: 16 },
-}
-const tailLayout = {
-  wrapperCol: { offset: 3, span: 16 },
-}
+import RenderFormItems, { RenderSubForm } from './field'
 
 const FormContent = props => {
   const { collection } = props;
@@ -21,26 +13,26 @@ const FormContent = props => {
   }
 
   return (
-    <Form
-      {...layout}
-      name="basic"
-      initialValues={collection}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-    >
-      {SContent.map(content => {
-        const { name, label } = content
-        return (
-          <RenderFormItems key={name} name={name} label={label} />
-        )
-      })}
-
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+    <>
+      <Form
+        layout="vertical"
+        name="basic"
+        initialValues={collection}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+      >
+        {SContent.map(content => {
+          const { name, label } = content
+          return (
+            <RenderFormItems key={name} name={name} label={label} />
+          )
+        })}
+      </Form>
+      {collection.fields ? <RenderSubForm fields={collection.fields} /> : <RenderSubForm fields={[{}]} />}
+      <Button type="primary" htmlType="submit">
+        Submit
+      </Button>
+    </>
   );
 };
 

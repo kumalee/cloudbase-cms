@@ -1,15 +1,26 @@
-import { Form, Input, InputNumber, Checkbox, DatePicker } from 'antd'
-import moment from 'moment'
+import { Form, Input, InputNumber } from 'antd'
+import { SSubContent } from '@/models/content.schema'
 
-const DateTime = props => {
-  let defaultValue = null;
-  const { initialValue, disabled, ...restProps } = props
-  if (initialValue) {
-    defaultValue = moment(initialValue)
-  }
-  return (
-    <DatePicker defaultValue={defaultValue} disabled={disabled} {...restProps} />
-  )
+export const RenderSubForm = props => {
+  const { fields } = props;
+  return fields.map((field, i) => (
+    <Form
+      layout="vertical"
+      key={`form-${i}`}
+      name={`advanced-${i}`}
+      initialValues={field}
+    >
+      {SSubContent.map(sc => (
+        <Form.Item
+          key={sc.name}
+          name={sc.name}
+          label={sc.label}
+        >
+          <Input />
+        </Form.Item>
+        ))}
+    </Form>
+  ))
 }
 
 const RenderFormItems = props => {
@@ -20,8 +31,7 @@ const RenderFormItems = props => {
         label={label}
         name={name}
       >
-        <Input {...restProps} disabled />
-        {/* { name === 'id' ? <Input {...restProps} disabled={true} /> :<DateTime {...restProps} disabled={true} />} */}
+        <Input {...restProps} disabled={true} />
       </Form.Item>
     );
   } else if (name === 'order') {
@@ -33,6 +43,8 @@ const RenderFormItems = props => {
         <InputNumber {...restProps} />
       </Form.Item>
     )
+  } else if (name === 'fields') {
+    return null;
   } else {
     return (
       <Form.Item

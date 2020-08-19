@@ -19,4 +19,5 @@ export interface IField {
   type: 'input' | 'datepicker' | 'timepicker' | 'radio' | 'boolean' | 'select' | 'checkbox' | 'password' | 'number' | 'textarea' | 'autocomplete' | 'cascader' | 'transfer' | 'upload' | 'iconpicker' | 'imagepicker' | 'fields',
   rules?: IRule[],
   readonly?: boolean,
+  hidden?: boolean,
 }

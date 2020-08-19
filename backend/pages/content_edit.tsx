@@ -1,47 +1,29 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { Skeleton } from 'antd'
+import { Skeleton, Space } from 'antd'
 import MainLayout from '@/layouts/main'
 import { getOneCollection } from '@/services/content'
+import { IContent } from '@/models/content.d'
 import FormContent from '@/components/forms/content'
-
-type Field = {
-  fieldLabel: string,
-  fieldName: string,
-  fieldType: string,
-  hidden?: boolean,
-  stringMaxLength?: number,
-  stringMinLength?: number,
-  helpText?: string,
-  isRequired?: boolean,
-  connectField?: string,
-  connectResource?: string,
-}
-
-type Collection = {
-  id: string,
-  icon?: string,
-  label: string,
-  collectionName: string,
-  description?: string,
-  fields: Field[],
-  order?: number,
-  createTime: string,
-  updateTime: string,
-}
+import '@/less/pages/content_edit.less'
 
 export default function Content() {
   const router = useRouter()
   const { query } = router
   const { mode, id } = query
-  const [collection, setCollection] = useState<Collection | undefined>()
+  const [collection, setCollection] = useState<IContent | undefined>()
   useEffect(() => {
     const getColumns = async () => {
       if (id) {
         const res = await getOneCollection(id)
-        console.log('id, ', id , 'res, ', res);
         if (res && res.result && res.result.data) {
-          setCollection(res.result.data);
+          const { createTime, updateTime } = res.result.data
+          const data = {
+            ...res.result.data,
+            createTime: createTime.replace('T', ' ').replace(/\.\d+Z/, ''),
+            updateTime: updateTime.replace('T', ' ').replace(/\.\d+Z/, ''),
+          }
+          setCollection(data);
         }
       }
     }
@@ -49,14 +31,13 @@ export default function Content() {
   },[id, mode])
   return (
     <MainLayout>
-      <div>
-        {mode === 'new' ? 'New' : 'Edit'} Content
+      <Space className="space_content">
         {id ? (
           collection ? <FormContent collection={collection} /> : <Skeleton />
         ): (
           <FormContent />
         )}
-      </div>
+      </Space>
     </MainLayout>
   )
 }
