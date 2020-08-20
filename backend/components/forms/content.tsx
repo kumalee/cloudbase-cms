@@ -1,4 +1,4 @@
-import { Space, Form, Button } from 'antd'
+import { Form, Button, Divider, Space } from 'antd'
 import { SContent } from '@/models/content.schema'
 import RenderFormItems, { RenderSubForm } from './field'
 
@@ -21,16 +21,23 @@ const FormContent = props => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
-        {SContent.map(content => {
-          const { name, label } = content
-          return (
-            <RenderFormItems key={name} name={name} label={label} />
-          )
-        })}
+        <Space style={{ display: 'flex', width: '100%', flexFlow: 'row wrap' }} align="start">
+          {SContent.map(content => {
+            const { name, label } = content
+            return (
+              <RenderFormItems key={name} name={name} label={label} />
+            )
+          })}
+        </Space>
       </Form>
+      <Divider />
       {collection.fields ? <RenderSubForm fields={collection.fields} /> : <RenderSubForm fields={[{}]} />}
+      <Button type="primary" htmlType="button">
+        Add New Field
+      </Button>
+      <Divider />
       <Button type="primary" htmlType="submit">
-        Submit
+        Save Collection Settings
       </Button>
     </>
   );
