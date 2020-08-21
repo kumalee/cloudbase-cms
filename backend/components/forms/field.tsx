@@ -60,10 +60,13 @@ const options = [
 
 const RenderFieldByType = props => {
   const { type, value, ...restProps } = props
-  console.log('restprops:', restProps, value);
   if (type === 'input') {
     return (
       <Input value={value} {...restProps} />
+    )
+  } else if (type === 'number') {
+    return (
+      <InputNumber value={value} {...restProps} />
     )
   } else if (type === 'boolean') {
     return (
@@ -72,6 +75,37 @@ const RenderFieldByType = props => {
   } else if (type === 'select') {
     return (
       <Select {...restProps} value={value} options={options} />
+    )
+  }
+}
+
+const RenderAttributeByType = props => {
+  const { SSubContent } = props;
+  if (SSubContent.filter(sc => sc.value === 'string')) {
+    return (
+      <>
+        <Form.Item
+          name="stringMaxLength"
+          label="Max Length"
+          style={{ marginBottom: '16px' }}
+        >
+          <RenderFieldByType type="number" />
+        </Form.Item>
+        <Form.Item
+          name="stringMinLength"
+          label="Min Length"
+          style={{ marginBottom: '16px' }}
+        >
+          <RenderFieldByType type="number" />
+        </Form.Item>
+        <Form.Item
+          name="defaultValue"
+          label="Default Value"
+          style={{ marginBottom: '16px' }}
+        >
+          <RenderFieldByType type="input" />
+        </Form.Item>
+      </>
     )
   }
 }
@@ -95,6 +129,7 @@ export const RenderSubForm = props => {
               <RenderFieldByType type={sc.type} />
             </Form.Item>
           ))}
+          <RenderAttributeByType SSubContent={SSubContent} />
         </Space>
       </Form>
       <Button htmlType="button">
