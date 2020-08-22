@@ -1,9 +1,8 @@
 import { IColumn } from './column'
-import { Input } from 'antd'
 
 export const SchemaColumns:IColumn[] = [
   {
-    name: 'id',
+    name: '_id',
     label: 'ID',
     type: 'input',
     readonly: true,

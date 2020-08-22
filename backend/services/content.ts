@@ -1,4 +1,5 @@
 import { initTcb } from './init'
+import { database } from 'tcb-js-sdk';
 
 // get all collection
 export const getCollections = async () => {
@@ -48,6 +49,21 @@ export const GetConnectCollections = async (ids: string[]) => {
       resource: "tcb-ext-cms-contents",
       params: {
         ids
+      }
+    }
+  })
+}
+
+export const UpdateContent = async (data) => {
+  const { app } = initTcb()
+  return await app.callFunction({
+    name: 'tcb-ext-cms-api',
+    data: {
+      operate: 'update',
+      resource: "tcb-ext-cms-contents",
+      params: {
+        id: data._id,
+        data,
       }
     }
   })

@@ -33,9 +33,9 @@ export default function Content() {
     <MainLayout>
       <Space className="space_content">
         {id ? (
-          collection ? <FormContent collection={collection} /> : <Skeleton />
+          collection ? <FormContent mode={mode} collection={collection} /> : <Skeleton />
         ): (
-          <FormContent />
+          <FormContent mode={mode} />
         )}
       </Space>
     </MainLayout>

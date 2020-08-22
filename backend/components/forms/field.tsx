@@ -14,8 +14,9 @@ const RenderSchemaFieldsByType = props => {
       <InputNumber {...restProps} />
     )
   } else if (type === 'boolean') {
+    const { value: checked, ...rrProps } = restProps
     return (
-      <Switch {...restProps} />
+      <Switch checked={checked} {...rrProps} />
     )
   } else if (type === 'select') {
     return (
@@ -25,8 +26,8 @@ const RenderSchemaFieldsByType = props => {
 }
 
 const RenderSchemaFieldAttributesByType = props => {
-  const { SchemaFields } = props;
-  if (SchemaFields.filter(sf => sf.value === 'string')) {
+  const { SchemaFields, field } = props;
+  if (SchemaFields.filter(sf => sf.name === 'fieldType').length && field.fieldType === 'String') {
     const attributes = SchemaFieldAttributesMapping.StringAttributes
     return (
       <Space style={{
@@ -38,7 +39,7 @@ const RenderSchemaFieldAttributesByType = props => {
         {attributes.map(attr => (
           <Form.Item
             key={attr.name}
-            name={attr.name}
+            name={`${attr.name}-${field.fieldId}`}
             label={attr.label}
             style={{ marginBottom: '16px' }}
           >
@@ -47,7 +48,7 @@ const RenderSchemaFieldAttributesByType = props => {
         ))}
       </Space>
     )
-  } else if (SchemaFields.filter(sf => sf.value === 'string')) {
+  } else if (SchemaFields.filter(sf => sf.name === 'fieldType').length && field.fieldType === 'Connect') {
     const attributes = SchemaFieldAttributesMapping.ConnectAttributes
     return (
       <Space style={{
@@ -59,7 +60,7 @@ const RenderSchemaFieldAttributesByType = props => {
         {attributes.map(attr => (
           <Form.Item
             key={attr.name}
-            name={attr.name}
+            name={`${attr.name}-${field.fieldId}`}
             label={attr.label}
             style={{ marginBottom: '16px' }}
           >
@@ -75,33 +76,27 @@ const RenderSchemaFieldAttributesByType = props => {
 export const RenderSchemaFields = props => {
   const { fields, deleteField } = props;
   return fields.length && fields.map((field, i) => (
-    <Fragment key={field.fieldName}>
-      <Form
-        layout="inline"
-        name={`advanced-${i}`}
-        initialValues={field}
-      >
-        <Space style={{
-          display: 'flex',
-          width: '100%',
-          flexFlow: 'row wrap',
-          justifyContent: 'space-around'
-        }} align="start">
-          {SchemaFields.map(sc => (
-            <Form.Item
-              key={sc.name}
-              name={sc.name}
-              label={sc.label}
-              required={sc.required}
-              hidden={sc.hidden}
-              style={{ marginBottom: '16px' }}
-            >
-              <RenderSchemaFieldsByType type={sc.type} />
-            </Form.Item>
-          ))}
-        </Space>
-        <RenderSchemaFieldAttributesByType SchemaFields={SchemaFields} />
-      </Form>
+    <Fragment key={field.fieldId}>
+      <Space style={{
+        display: 'flex',
+        width: '100%',
+        flexFlow: 'row wrap',
+        justifyContent: 'space-around'
+      }} align="start">
+        {SchemaFields.map(sc => (
+          <Form.Item
+            key={sc.name}
+            name={`${sc.name}-${field.fieldId}`}
+            label={sc.label}
+            required={sc.required}
+            hidden={sc.hidden}
+            style={{ marginBottom: '16px' }}
+          >
+            <RenderSchemaFieldsByType type={sc.type} />
+          </Form.Item>
+        ))}
+      </Space>
+      <RenderSchemaFieldAttributesByType field={field} SchemaFields={SchemaFields} />
       <Button htmlType="button" onClick={() => deleteField(field.fieldId)}>
         <MinusCircleOutlined /> Delete the field
       </Button>
@@ -111,7 +106,7 @@ export const RenderSchemaFields = props => {
 }
 
 const RenderSchemaColumns = props => {
-  const { name, label, readonly, type, required, ...restProps } = props;
+  const { name, label, readonly, type, required, defaultValue, ...restProps } = props;
   if (type === 'input') {
     let disabled = {}
     if (readonly) disabled = { disabled: true }
