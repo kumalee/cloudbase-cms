@@ -3,6 +3,14 @@ import { MinusCircleOutlined } from '@ant-design/icons';
 import { Form, Input, InputNumber, Divider, Space, Switch, Select, Button } from 'antd'
 import { SchemaFields, SchemaFieldAttributesMapping, SchemaFieldTypes } from '@/models/schema'
 
+const getRules = (required, label) => {
+  if (required) {
+    return { rules: [{ required: true, message: `${label} is Required`}] }
+  } else {
+    return {}
+  }
+}
+
 const RenderSchemaFieldsByType = props => {
   const { type, ...restProps } = props
   if (type === 'input') {
@@ -63,6 +71,7 @@ const RenderSchemaFieldAttributesByType = props => {
             name={`${attr.name}-${field.fieldId}`}
             label={attr.label}
             style={{ marginBottom: '16px' }}
+            {...getRules(attr.required, attr.label)}
           >
             <RenderSchemaFieldsByType type={attr.type} />
           </Form.Item>
@@ -90,6 +99,7 @@ export const RenderSchemaFields = props => {
             label={sc.label}
             required={sc.required}
             hidden={sc.hidden}
+            {...getRules(sc.required, sc.label)}
             style={{ marginBottom: '16px' }}
           >
             <RenderSchemaFieldsByType type={sc.type} />
@@ -115,6 +125,7 @@ const RenderSchemaColumns = props => {
         label={label}
         name={name}
         required={required}
+        {...getRules(required, label)}
         style={{ marginBottom: '16px' }}
       >
         <Input {...restProps} {...disabled} />
@@ -126,6 +137,7 @@ const RenderSchemaColumns = props => {
         label={label}
         name={name}
         required={required}
+        {...getRules(required, label)}
         style={{ marginBottom: '16px' }}
       >
         <InputNumber {...restProps} />
