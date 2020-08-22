@@ -4,13 +4,13 @@ import { Skeleton, Space } from 'antd'
 import MainLayout from '@/layouts/main'
 import { getOneCollection } from '@/services/content'
 import { IContent } from '@/models/content.d'
-import FormContent from '@/components/forms/content'
+import FormContent from '@/components/forms/schema'
 import '@/less/pages/content_edit.less'
 
 export default function Content() {
   const router = useRouter()
   const { query } = router
-  const { mode, id } = query
+  const { mode, id = '' } = query
   const [collection, setCollection] = useState<IContent | undefined>()
   useEffect(() => {
     const getColumns = async () => {

@@ -13,11 +13,13 @@ export interface IRule {
   validateTrigger?: string | string[],
 }
 
-export interface IField {
+export interface IColumn {
   name: string,
   label: string,
-  type: 'input' | 'datepicker' | 'timepicker' | 'radio' | 'boolean' | 'select' | 'checkbox' | 'password' | 'number' | 'textarea' | 'autocomplete' | 'cascader' | 'transfer' | 'upload' | 'iconpicker' | 'imagepicker' | 'fields',
+  type: 'input' | 'datepicker' | 'timepicker' | 'radio' | 'boolean' | 'select' | 'checkbox' | 'password' | 'number' | 'textarea' | 'autocomplete' | 'cascader' | 'transfer' | 'upload' | 'iconpicker' | 'imagepicker' | 'array',
   rules?: IRule[],
   readonly?: boolean,
   hidden?: boolean,
+  required: boolean,
+  defaultValue?: any,
 }
