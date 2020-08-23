@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment } from 'react'
 import { MinusCircleOutlined } from '@ant-design/icons';
 import { Form, Input, InputNumber, Divider, Space, Switch, Select, Button } from 'antd'
 import { SchemaFields, SchemaFieldAttributesMapping, SchemaFieldTypes } from '@/models/schema'
