@@ -34,8 +34,8 @@ const RenderSchemaFieldsByType = props => {
 }
 
 const RenderSchemaFieldAttributesByType = props => {
-  const { SchemaFields, field } = props;
-  if (SchemaFields.filter(sf => sf.name === 'fieldType').length && field.fieldType === 'String') {
+  const { field } = props;
+  if (field.fieldType === 'String') {
     const attributes = SchemaFieldAttributesMapping.StringAttributes
     return (
       <Space style={{
@@ -56,7 +56,7 @@ const RenderSchemaFieldAttributesByType = props => {
         ))}
       </Space>
     )
-  } else if (SchemaFields.filter(sf => sf.name === 'fieldType').length && field.fieldType === 'Connect') {
+  } else if (field.fieldType === 'Connect') {
     const attributes = SchemaFieldAttributesMapping.ConnectAttributes
     return (
       <Space style={{
