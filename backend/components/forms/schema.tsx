@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { Form, Button, Divider, Space } from 'antd'
 import { v4 as uuidV4 } from 'uuid'
+import md5 from './md5'
 import { SchemaColumns } from '@/models/schema'
 import RenderSchemaColumns, { RenderSchemaFields } from './field'
 import { UpdateContent } from '@/services/content'
@@ -16,6 +17,7 @@ const FormSchema = props => {
   const refForm = useRef(null);
   const [fieldsDone, setFieldsDone] = useState(false)
   const [localFields, setLocalFields] = useState([{ fieldId: uuidV4() }])
+  const [md5key, setMd5key] = useState(md5(JSON.stringify({key:'init'})))
   useEffect(() => {
     collection && setLocalFields(collection.fields.map(field => {
       field.fieldId = uuidV4()
@@ -27,6 +29,7 @@ const FormSchema = props => {
     }))
     if (mode === 'new' || (mode === 'edit' && collection)) {
       setFieldsDone(true)
+      setMd5key(md5(JSON.stringify(collection)))
     }
   }, [collection, mode])
 
@@ -66,6 +69,37 @@ const FormSchema = props => {
     refForm.current.submit()
   }
 
+  const onFieldsChange = (changedField, allFields) => {
+    console.log('changed Field', changedField, allFields)
+    console.log('localFields:', localFields)
+  }
+
+  const onValuesChange = (value) => {
+    const keys = Object.keys(value)
+    if (keys && keys[0]) {
+      const key = keys[0]
+      const _id = key.match(/(?<=-).*(\w|\d){12}/)
+      if (_id) {
+        const _name = key.match(/\w+(?=-)/)
+        const vals = Object.values(value)
+        if (_name[0] === 'fieldType') {
+          console.log(_name[0], _id[0], vals[0])
+          console.log('localFields:', localFields)
+          localFields.find(lf => lf.fieldId === _id[0])[_name[0]] = vals[0]
+          setLocalFields(localFields)
+          setMd5key(md5(JSON.stringify(localFields)))
+          if (vals[0] === 'Connect') {
+            // do something
+          } else if (vals[0] === 'String') {
+            // do something
+          } else {
+            // hide all specific attributes
+          }
+        }
+      }
+    }
+  }
+
   return fieldsDone && (
     <>
       <Form
@@ -74,6 +108,8 @@ const FormSchema = props => {
         initialValues={collection}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
+        onValuesChange={onValuesChange}
+        onFieldsChange={onFieldsChange}
         ref={refForm}
       >
         <Space style={{
@@ -86,7 +122,7 @@ const FormSchema = props => {
           )}
         </Space>
         <Divider />
-        <RenderSchemaFields fields={localFields} deleteField={deleteField} />
+        <RenderSchemaFields key={md5key} fields={localFields} deleteField={deleteField} />
       </Form>
       <Button type="primary" htmlType="button" onClick={addField}>
         Add New Field

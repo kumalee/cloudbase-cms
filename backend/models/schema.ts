@@ -198,6 +198,12 @@ const ConnectAttributes:IColumn[] = [
     type: 'select',
     required: true,
   },
+  {
+    name: 'connectMany',
+    label: 'Connect Many',
+    type: 'boolean',
+    required: false,
+  }
 ]
 
 export const SchemaFieldAttributesMapping = {

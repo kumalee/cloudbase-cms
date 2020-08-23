@@ -35,6 +35,7 @@ const RenderSchemaFieldsByType = props => {
 
 const RenderSchemaFieldAttributesByType = props => {
   const { field } = props;
+  console.log('field attribute render:', field)
   if (field.fieldType === 'String') {
     const attributes = SchemaFieldAttributesMapping.StringAttributes
     return (
