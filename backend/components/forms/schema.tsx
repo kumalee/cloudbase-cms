@@ -17,7 +17,7 @@ const FormSchema = props => {
   const refForm = useRef(null);
   const [fieldsDone, setFieldsDone] = useState(false)
   const [localFields, setLocalFields] = useState([{ fieldId: uuidV4() }])
-  const [md5key, setMd5key] = useState(md5(JSON.stringify({key:'init'})))
+  const [md5key, setMd5key] = useState(md5(JSON.stringify({ field: uuidV4() })))
   useEffect(() => {
     collection && setLocalFields(collection.fields.map(field => {
       field.fieldId = uuidV4()
@@ -29,7 +29,7 @@ const FormSchema = props => {
     }))
     if (mode === 'new' || (mode === 'edit' && collection)) {
       setFieldsDone(true)
-      setMd5key(md5(JSON.stringify(collection)))
+      collection && setMd5key(md5(JSON.stringify(collection)))
     }
   }, [collection, mode])
 

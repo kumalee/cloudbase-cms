@@ -100,7 +100,7 @@ export const SchemaFields:IColumn[] = [
   },
   {
     name: 'fieldId',
-    label: 'field Id',
+    label: 'Field Id',
     type: 'input',
     required: false,
     hidden: true,
