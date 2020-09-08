@@ -29,3 +29,8 @@ export const hasLoginState = () => {
     const { auth } = initTcb()
     return auth.hasLoginState()
 }
+
+export const getAuthHeader = () => {
+  const { auth } = initTcb()
+  return auth.getAuthHeader()
+}

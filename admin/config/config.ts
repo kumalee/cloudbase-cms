@@ -49,18 +49,17 @@ export default defineConfig({
       component: './Welcome',
     },
     {
-      path: '/admin',
+      path: '/cms',
       name: 'admin',
       icon: 'crown',
       access: 'canAdmin',
-      component: './Admin',
       routes: [
         {
-          path: '/admin/sub-page',
-          name: 'sub-page',
-          icon: 'smile',
-          component: './Welcome',
-        },
+          path: '/cms/media',
+          name: 'file-upload',
+          icon: 'upload',
+          component: './FileUpload'
+        }
       ],
     },
     {

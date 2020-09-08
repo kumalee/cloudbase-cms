@@ -8,7 +8,11 @@ export async function query() {
 
 export async function queryCurrent() {
   if (SERVICE_ENV === ENV.TCB) {
-    return getCurrentUser();
+    const user = getCurrentUser();
+    return {
+      ...user,
+      access: 'admin'
+    }
   }
   return request<API.CurrentUser>('/api/currentUser');
 }
