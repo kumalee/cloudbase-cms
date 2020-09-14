@@ -1,8 +1,8 @@
 const uploader = require('../lib/uploader')
 
 module.exports = async (ctx) => {
-  let files = ctx.request.files['file[]']
-  
+  let files = ctx.request.files['files[]']
+
   let result = {}
   if (!files.length) {
       files = [files]
@@ -11,7 +11,7 @@ module.exports = async (ctx) => {
       return uploader.upload(ctx.state.tcbInstance,file)
   })
   const data = await Promise.all(jobs)
-  result = await uploader.getURL(ctx.state.tcbInstance,data)
+  // result = await uploader.getURL(ctx.state.tcbInstance,data)
   console.log(result)
   ctx.body = result
 }

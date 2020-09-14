@@ -5,7 +5,7 @@ import Uppy from '@uppy/core';
 import XHRUpload from '@uppy/xhr-upload';
 import Chinese from '@uppy/locales/lib/zh_CN';
 import { DashboardModal } from '@uppy/react';
-import { getAuthHeader } from '@/services/tcb';
+import { getAuthHeader, addPicture } from '@/services/tcb';
 import endpoints from '@/services/tcb/endpoints';
 import styles from './style.less';
 import '@uppy/core/dist/style.css';
@@ -24,6 +24,12 @@ const uppy = new Uppy({ locale: Chinese })
     headers: getAuthHeader(),
     endpoint: endpoints.upload
   })
+
+uppy.on('upload-success', (file, response) => {
+  console.log(file, response)
+  const { body } = response;
+  addPicture(body.data.succMap[0]);
+})
 
 export default (): React.ReactNode => {
   const [isOpen, setIsOpen] = useState(false);
