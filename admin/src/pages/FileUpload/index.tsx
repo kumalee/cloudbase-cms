@@ -17,7 +17,22 @@ const uppy = new Uppy({ locale: Chinese })
   .use(XHRUpload, {
     headers: getAuthHeader(),
     endpoint: endpoints.upload,
+    maxFileSize: 500 * 1024 * 1024,
+    maxNumberOfFiles: 10,
+    allowedFileTypes: ['image/*', '.jpg', '.jpeg', '.png', '.gif']
   })
+
+uppy.on('file-added', (file) => {
+  const data = file.data // is a Blob instance
+  const url = URL.createObjectURL(data)
+  const image = new Image()
+  image.src = url
+  image.onload = () => {
+    uppy.setFileMeta(file.id, { width: image.width, height: image.height })
+    // Call this method when you've finished using an object URL to let the browser know not to keep the reference to the file any longer.
+    URL.revokeObjectURL(url)
+  }
+})
 
 uppy.on('upload-success', (file, response) => {
   console.log(file, response)
@@ -25,7 +40,8 @@ uppy.on('upload-success', (file, response) => {
   if (body.code) {
     alert(body.code + ': ' + body.message);
   } else {
-    addPicture(body.data.succMap[0]);
+    console.timeLog('success: ');
+    // addPicture(body.data.succMap[0]);
   }
 })
 

@@ -2,7 +2,6 @@ const fs = require('fs')
 const dayjs = require('dayjs')
 const uuidv4 = require('uuid/v4')
 const path = require('path')
-const axios = require('axios')
 
 const upload = (app,file) => {
     return new Promise(async (resolve, reject) => {
@@ -41,19 +40,10 @@ const getURL = async (app,files) => {
     return fileList
 }
 
-const getImageInfo = async file => {
-  const infos = await axios.get(`${file.download_url}?imageInfo`)
-  return {
-    ...file,
-    ...infos.data,
-  }
-}
-
 const uploader = {
     dataFormat,
     upload,
     getURL,
-    getImageInfo,
 }
 
 module.exports = uploader

@@ -2,6 +2,7 @@ const uploader = require('../lib/uploader')
 
 module.exports = async (ctx) => {
   let files = ctx.request.files['files[]']
+  const { width, height, type } = ctx.request.body;
 
   let result = {}
   if (!files.length) {
@@ -14,12 +15,11 @@ module.exports = async (ctx) => {
   const fileList = await uploader.getURL(ctx.state.tcbInstance,data)
   data.map(d => {
     d.download_url = fileList.download_url;
+    d.width = width;
+    d.height = height;
+    d.type = type;
   })
-  const jobs2 = data.map((d => {
-    return uploader.getImageInfo(d)
-  }));
-  const data2 = await Promise.all(jobs2)
-  result = uploader.dataFormat(data2)
+  result = uploader.dataFormat(data)
   console.log(result)
   ctx.body = result
 }

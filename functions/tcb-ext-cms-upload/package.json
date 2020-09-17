@@ -10,7 +10,6 @@
     "@cloudbase/node-sdk": "^2.0.2",
     "@koa/cors": "^2.2.3",
     "@koa/router": "^8.0.8",
-    "axios": "^0.20.0",
     "dayjs": "^1.8.28",
     "koa": "^2.11.0",
     "koa-body": "^4.2.0",
