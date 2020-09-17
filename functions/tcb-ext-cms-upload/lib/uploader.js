@@ -2,18 +2,20 @@ const fs = require('fs')
 const dayjs = require('dayjs')
 const uuidv4 = require('uuid/v4')
 const path = require('path')
+const axios = require('axios')
 
 const upload = (app,file) => {
     return new Promise(async (resolve, reject) => {
         const day = dayjs().format('YYYY-MM-DD')
         const stream = fs.createReadStream(file.path)
-        const { fileID } = await app.uploadFile({
+        const res = await app.uploadFile({
             cloudPath: `tcb-cms/${day}/${uuidv4()}${path.extname(file.name)}`,
             fileContent: stream,
         })
+        console.log('file uploaded: ', res);
         resolve({
             fileName: file.name,
-            fileID
+            fileID: res.fileID
         })
     })
 }
@@ -36,17 +38,22 @@ const getURL = async (app,files) => {
     const { fileList } = await app.getTempFileURL({
         fileList: ids,
     })
-    const json = {}
-    fileList.forEach(({ fileID, tempFileURL }, index) => {
-        const { fileName } = files[index]
-        json[`${fileName}`] = tempFileURL
-    })
-    return dataFormat(json)
+    return fileList
+}
+
+const getImageInfo = async file => {
+  const infos = await axios.get(`${file.download_url}?imageInfo`)
+  return {
+    ...file,
+    ...infos.data,
+  }
 }
 
 const uploader = {
+    dataFormat,
     upload,
-    getURL
+    getURL,
+    getImageInfo,
 }
 
 module.exports = uploader

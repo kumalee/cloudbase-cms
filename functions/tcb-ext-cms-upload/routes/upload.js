@@ -11,7 +11,15 @@ module.exports = async (ctx) => {
       return uploader.upload(ctx.state.tcbInstance,file)
   })
   const data = await Promise.all(jobs)
-  // result = await uploader.getURL(ctx.state.tcbInstance,data)
+  const fileList = await uploader.getURL(ctx.state.tcbInstance,data)
+  data.map(d => {
+    d.download_url = fileList.download_url;
+  })
+  const jobs2 = data.map((d => {
+    return uploader.getImageInfo(d)
+  }));
+  const data2 = await Promise.all(jobs2)
+  result = uploader.dataFormat(data2)
   console.log(result)
   ctx.body = result
 }
