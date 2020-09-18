@@ -40,10 +40,25 @@ const getURL = async (app,files) => {
     return fileList
 }
 
+const saveToDB = async (app, picture) => {
+  const res = await app.callFunction({
+    name: 'tcb-ext-cms-api',
+    data: {
+      "operate": "create",
+      "resource": "pictures",
+      "params": {
+        data: picture
+      }
+    }
+  });
+  return res;
+}
+
 const uploader = {
     dataFormat,
     upload,
     getURL,
+    saveToDB,
 }
 
 module.exports = uploader
