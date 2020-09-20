@@ -1,4 +1,4 @@
-import tcb from 'tcb-js-sdk'
+import cloudbase from '@cloudbase/js-sdk'
 
 let app, auth;
 
@@ -9,7 +9,7 @@ export const initTcb = () => {
             auth,
         }
     }
-    app = tcb.init({
+    app = cloudbase.init({
         env: TCB_ENV
     })
     auth = app.auth({

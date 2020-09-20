@@ -1,19 +1,40 @@
 import { initTcb } from './init'
 
-export const addPicture = async (picture) => {
-  console.log('picture:', picture);
+export const getPictures = async (props: any) => {
+  const { page = 1, pageSize = 100, filter = {} } = props;
   const { app } = initTcb()
-   await app.callFunction({
+  const res = await app.callFunction({
     name: 'tcb-ext-cms-api',
     data: {
-      "operate": "create",
+      "operate": "getList",
       "resource": "pictures",
       "params": {
-        data: {
-          "picture": picture.fileID,
-          "name": picture.fileName,
-        }
+        "filter": filter,
+        "pagination": {
+          "page": page,
+          "perPage": pageSize,
+        },
+        "sort":{
+          "field": "createTime",
+          "order": "DESC",
+        },
       }
     }
   });
+  const pictures = res.result.data;
+  return pictures;
+}
+
+export const deletePictures = async (props: any) => {
+  const { ids, fileIDs } = props;
+  const { app } = initTcb()
+  const res = await app.callFunction({
+    name: 'tcb-ext-cms-del-files',
+    data: {
+      "ids": ids,
+      "fileIDs": fileIDs,
+    },
+  });
+  const pictures = res.result.data;
+  return pictures;
 }
