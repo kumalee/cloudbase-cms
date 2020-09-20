@@ -1,5 +1,4 @@
 const uploader = require('../lib/uploader');
-const { upload } = require('../lib/uploader');
 
 module.exports = async (ctx) => {
   let files = ctx.request.files['files[]']

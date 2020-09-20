@@ -1,7 +1,7 @@
 {
-  "name": "upload",
+  "name": "del-files",
   "version": "1.0.0",
-  "description": "CMS图片上传",
+  "description": "CMS文件删除",
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=local nodemon index.js"
@@ -14,10 +14,9 @@
     "koa": "^2.11.0",
     "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.2.1",
-    "node-vibrant": "^3.1.5",
     "serverless-http": "^2.3.0"
   },
-  "author": "Erik Qin",
+  "author": "Kuma Li",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.4"
