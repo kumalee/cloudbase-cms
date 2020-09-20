@@ -4,7 +4,7 @@ export default {
   'menu.home': '首页',
   'menu.admin': '管理页',
   'menu.admin.sub-page': '二级管理页',
-  'menu.admin.file-upload': '媒体管理',
+  'menu.media': '媒体管理',
   'menu.login': '登录',
   'menu.register': '注册',
   'menu.register.result': '注册结果',

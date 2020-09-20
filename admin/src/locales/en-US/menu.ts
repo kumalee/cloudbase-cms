@@ -4,7 +4,7 @@ export default {
   'menu.home': 'Home',
   'menu.admin': 'Admin',
   'menu.admin.sub-page': 'Sub-Page',
-  'menu.admin.file-upload': 'Media Management',
+  'menu.media': 'Media Management',
   'menu.login': 'Login',
   'menu.register': 'Register',
   'menu.register.result': 'Register Result',

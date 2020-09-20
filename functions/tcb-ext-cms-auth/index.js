@@ -1,4 +1,4 @@
-const tcb = require("tcb-admin-node");
+const tcb = require("@cloudbase/node-sdk");
 const serverless = require("serverless-http");
 const Koa = require("koa");
 const Router = require("@koa/router");

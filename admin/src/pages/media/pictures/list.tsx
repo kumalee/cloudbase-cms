@@ -1,6 +1,6 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, Checkbox } from 'antd';
-import { getPictures, deletePictures } from '@/services/tcb';
+import { getPictures } from '@/services/tcb';
 import './index.less';
 
 const getMainColor = picture => {

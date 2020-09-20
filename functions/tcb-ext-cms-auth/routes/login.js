@@ -1,10 +1,9 @@
-const tcb = require("tcb-admin-node");
-
 const genPassword = require("../lib/crypto").genPassword;
 
 module.exports = async (ctx) => {
   const { userName, password } = ctx.request.body;
   const config = ctx.state.config;
+  const app = ctx.state.tcbInstance;
 
   if (!userName || !password) {
     throw Object.assign(new Error("用户名或者密码不能为空"), {
@@ -12,9 +11,7 @@ module.exports = async (ctx) => {
     });
   }
 
-  const db = tcb.database({
-    env: config.envId,
-  });
+  const db = app.database();
   const collection = db.collection(config.usersCollectionName);
   const query = collection.where({
     userName,
@@ -56,7 +53,7 @@ module.exports = async (ctx) => {
     });
   }
 
-  const ticket = tcb.auth().createTicket(userName, {
+  const ticket = app.auth().createTicket(userName, {
     refresh: 60 * 60 * 1000,
   });
 

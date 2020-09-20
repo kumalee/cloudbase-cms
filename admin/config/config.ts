@@ -49,18 +49,10 @@ export default defineConfig({
       component: './Welcome',
     },
     {
-      path: '/cms',
-      name: 'admin',
-      icon: 'crown',
-      access: 'canAdmin',
-      routes: [
-        {
-          path: '/cms/media',
-          name: 'file-upload',
-          icon: 'upload',
-          component: './FileUpload'
-        }
-      ],
+      path: '/media',
+      name: 'media',
+      icon: 'picture',
+      component: './media'
     },
     {
       name: 'list.table-list',

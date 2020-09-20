@@ -10,7 +10,8 @@ export const initTcb = () => {
         }
     }
     app = cloudbase.init({
-        env: TCB_ENV
+        env: TCB_ENV,
+        timeout: 30000
     })
     auth = app.auth({
         persistence: 'local'

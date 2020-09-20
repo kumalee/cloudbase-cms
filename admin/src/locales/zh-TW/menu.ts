@@ -5,7 +5,7 @@ export default {
   'menu.login': '登錄',
   'menu.admin': '权限',
   'menu.admin.sub-page': '二级管理页',
-  'menu.admin.file-upload': '媒体管理',
+  'menu.media': '媒体管理',
   'menu.exception.403': '403',
   'menu.exception.404': '404',
   'menu.exception.500': '500',

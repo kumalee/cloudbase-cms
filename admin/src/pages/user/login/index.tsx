@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Link, SelectLang, useModel } from 'umi';
 import { getPageQuery } from '@/utils/utils';
 import logo from '@/assets/logo.svg';
-import { LoginParamsType, fakeAccountLogin } from '@/services/login';
+import { LoginParamsType } from '@/services/login';
 import { getAuthTicket, signIn } from '@/services/tcb/user';
 import Footer from '@/components/Footer';
 import LoginFrom from './components/Login';
@@ -63,18 +63,19 @@ const Login: React.FC<{}> = () => {
       if (ticketRes.data.code) {
         setUserLoginState({ status: 'error', type });
       } else {
-          await signIn(ticketRes.data.data.ticket);
-          //  save ticketRes.data.data.role (administrator) to localStorage
-          replaceGoto();
-          setTimeout(() => {
-            refresh();
-          }, 0);
-          return;
+        console.log(ticketRes.data);
+        await signIn(ticketRes.data.data.ticket);
+        replaceGoto();
+        setTimeout(() => {
+          refresh();
+        }, 0);
+        return;
       }
       // 如果失败去设置用户错误信息
       // setUserLoginState(msg);
     } catch (error) {
       message.error('登录失败，请重试！');
+      console.log('login failed:', error);
     }
     setSubmitting(false);
   };
