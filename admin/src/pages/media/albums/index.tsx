@@ -8,12 +8,19 @@ import './index.less';
 
 export default (): React.ReactNode => {
   const [mode, setMode] = useState('single');
-  const [reloadAlbum, setReloadAlbum] = useState(new Date());
+  const [reloadAlbums, setReloadAlbums] = useState(new Date());
   const [choosedAlbums, setChoosedAlbums] = useState([]);
+  const [deleting, setDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const deleteSelectedAlbums = useCallback(() => {
     if (choosedAlbums.length) {
-      deleteAlbums(choosedAlbums);
+      setDeleting(true);
+      deleteAlbums(choosedAlbums).then(res => {
+        setDeleting(false);
+        setReloadAlbums(new Date());
+      }).catch(error => {
+        message.info('Oops: ' + JSON.stringify(error));
+      });
     } else {
       message.info("You haven't selected any Album");
     }
@@ -34,7 +41,7 @@ export default (): React.ReactNode => {
               <EditOutlined />
               Edit
             </Button>
-            <Button type="danger" onClick={deleteSelectedAlbums}>
+            <Button type="danger" loading={deleting} onClick={deleteSelectedAlbums}>
               <DeleteOutlined />
               Delete
             </Button>
@@ -56,8 +63,8 @@ export default (): React.ReactNode => {
           </Fragment>
         )}
       </Space>
-      <EditModalForm setReloadAlbum={setReloadAlbum} addAlbum={createAlbum} updateAlbum={updateAlbum} visible={isEditing} setVisible={setIsEditing} />
-      <List reloadAlbum={reloadAlbum} mode={mode} selectedAlbums={choosedAlbums} setSelectedAlbums={setSelectedAlbums} />
+      <EditModalForm setReloadAlbums={setReloadAlbums} addAlbum={createAlbum} updateAlbum={updateAlbum} visible={isEditing} setVisible={setIsEditing} />
+      <List reloadAlbums={reloadAlbums} mode={mode} selectedAlbums={choosedAlbums} setSelectedAlbums={setSelectedAlbums} />
     </Fragment>
   );
 }

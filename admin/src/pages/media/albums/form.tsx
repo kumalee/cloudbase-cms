@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, Input, message } from 'antd';
+import { Modal, Button, Form, Input, Space, message } from 'antd';
 
 const layout = {
   labelCol: { span: 8 },
@@ -11,7 +11,7 @@ const tailLayout = {
 
 export default (props): React.ReactNode => {
   const [loading, setLoading] = useState(false);
-  const { visible, setVisible, addAlbum, setReloadAlbum } = props;
+  const { visible, setVisible, addAlbum, setReloadAlbums } = props;
 
   const handleCancel = () => {
     setVisible(false);
@@ -25,7 +25,7 @@ export default (props): React.ReactNode => {
     if (res.id) {
       setLoading(false);
       setVisible(false);
-      setReloadAlbum(new Date());
+      setReloadAlbums(new Date());
     }
   };
 
@@ -71,12 +71,14 @@ export default (props): React.ReactNode => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
-            Save
-          </Button>
-          <Button htmlType="button" onClick={handleCancel}>
-            Cancel
-          </Button>
+          <Space size="small">
+            <Button type="primary" loading={loading} htmlType="submit">
+              Save
+            </Button>
+            <Button htmlType="button" onClick={handleCancel}>
+              Cancel
+            </Button>
+          </Space>
         </Form.Item>
       </Form>
     </Modal>

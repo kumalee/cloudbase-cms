@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Image, Checkbox, Typography } from 'antd';
+import { Image, Checkbox, Typography, Spin } from 'antd';
 import { getAlbums } from '@/services/tcb';
 
 const getMainColor = color => {
@@ -8,11 +8,14 @@ const getMainColor = color => {
 
 export default (props): React.ReactNode => {
   const [albums, setAlumbs] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { reloadAlbums, mode, selectedAlbums, setSelectedAlbums } = props;
   useEffect(() => {
     const getAllAlbums = async () => {
+      setLoading(true);
       const res = await getAlbums({});
       setAlumbs(res)
+      setLoading(false);
     }
     getAllAlbums();
   }, [reloadAlbums])
@@ -38,7 +41,7 @@ export default (props): React.ReactNode => {
   }
   return (
     <div className="album-list">
-      {albums.map((album) => (
+      {!loading && albums.map((album) => (
         <div className={`album-wrap ${selectedAlbums.includes(album.id) ? 'checked' : ''}`} key={album.id}>
           {album.name ? (
             <Fragment>
@@ -62,6 +65,13 @@ export default (props): React.ReactNode => {
           <Typography>{album.description2}</Typography>
         </div>
       ))}
+      {loading && <Spin
+        size="small"
+        style={{
+          marginLeft: 8,
+          marginRight: 8,
+        }}
+      />}
     </div>
   );
 }

@@ -6,7 +6,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: start;
-  align-items: center;
+  align-items: flex-start;
 
   .album-wrap {
     position: relative;
@@ -33,14 +33,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     background-color: #eee;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     margin-right: 14px;
     padding: 1px;
+    width: 204px;
+    height: 204px;
 
     .ant-image-img {
-      width: auto;
+      max-width: 200px;
+      max-height: 200px;
     }
   }
 }
