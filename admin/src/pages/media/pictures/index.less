@@ -22,6 +22,9 @@
     &.checked {
       .ant-image {
         border-color: #009eeb;
+        &:before {
+          display: none;
+        }
       }
       .ant-checkbox-wrapper {
         display: block;
@@ -33,14 +36,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     background-color: #eee;
     margin-bottom: 20px;
     margin-right: 14px;
     padding: 1px;
+    width: 124px;
+    height: 124px;
+    &:before {
+      content: ' ';
+      display: block;
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.4);
+      width: 124px;
+      height: 124px;
+    }
 
     .ant-image-img {
-      width: auto;
+      max-width: 120px;
+      max-height: 120px;
+      user-select: none;
     }
   }
 }

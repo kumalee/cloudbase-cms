@@ -49,10 +49,16 @@ export default defineConfig({
       component: './Welcome',
     },
     {
-      path: '/media',
-      name: 'media',
+      path: '/media-picture',
+      name: 'media.picture',
       icon: 'picture',
-      component: './media'
+      component: './media/pictures',
+    },
+    {
+      path: '/media-album',
+      name: 'media.album',
+      icon: 'picture',
+      component: './media/albums',
     },
     {
       name: 'list.table-list',

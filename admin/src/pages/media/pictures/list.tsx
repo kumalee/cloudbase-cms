@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Image, Checkbox } from 'antd';
+import { Image, Checkbox, Empty } from 'antd';
 import { getPictures } from '@/services/tcb';
 import './index.less';
 
@@ -36,7 +36,7 @@ export default (props): React.ReactNode => {
       } else {
         setSelectedPictures({
           ids: selectedPictures.ids.filter(sp => sp !== id),
-          fileIDS: selectedPictures.fileIDs.filter(fi => fi !== fileID),
+          fileIDs: selectedPictures.fileIDs.filter(fi => fi !== fileID),
         })
       }
     } else {
@@ -46,11 +46,12 @@ export default (props): React.ReactNode => {
   }
   return (
     <div className="photo-list">
+      {!pictures.length && <Empty />}
       {pictures.map((picture) => (
         <div className={`photo-wrap ${selectedPictures.ids.includes(picture.id) ? 'checked' : ''}`} key={picture.id}>
           <Image
-            width={122}
-            height={122}
+            width={124}
+            height={124}
             src={`${picture.download_url}?&imageMogr2/thumbnail/120x120`}
             placeholder={
               <div style={{ backgroundColor: `${getMainColor(picture)}` }} />

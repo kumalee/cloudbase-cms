@@ -1,5 +1,6 @@
 import React, { useState, Fragment, useCallback } from 'react';
-import { Button, Space, message } from 'antd';
+import { Tabs, Card, Button, Space, Popconfirm, message } from 'antd';
+import { PageContainer } from '@ant-design/pro-layout';
 import { CloudUploadOutlined, EditOutlined, CheckSquareOutlined, DeleteOutlined, StopOutlined } from '@ant-design/icons';
 import { addAlbum as createAlbum, updateAlbum, deleteAlbums } from '@/services/tcb';
 import List from './list';
@@ -33,38 +34,47 @@ export default (): React.ReactNode => {
     // setReloadAlbum(new Date());
   }
   return (
-    <Fragment>
-      <Space>
-        {mode === 'batch' ? (
-          <Fragment>
-            <Button type="primary" onClick={()=>{}}>
-              <EditOutlined />
-              Edit
-            </Button>
-            <Button type="danger" loading={deleting} onClick={deleteSelectedAlbums}>
-              <DeleteOutlined />
-              Delete
-            </Button>
-            <Button type="ghost" onClick={()=>{setMode('single')}}>
-              <StopOutlined />
-              Cancel
-            </Button>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <Button type="primary" onClick={addAlbum}>
-              <CloudUploadOutlined />
-              Add Album
-            </Button>
-            <Button type="primary" onClick={()=>{setMode('batch')}}>
-              <CheckSquareOutlined />
-              Batch Edit
-            </Button>
-          </Fragment>
-        )}
-      </Space>
-      <EditModalForm setReloadAlbums={setReloadAlbums} addAlbum={createAlbum} updateAlbum={updateAlbum} visible={isEditing} setVisible={setIsEditing} />
-      <List reloadAlbums={reloadAlbums} mode={mode} selectedAlbums={choosedAlbums} setSelectedAlbums={setSelectedAlbums} />
-    </Fragment>
+    <PageContainer>
+      <Card>
+        <Space>
+          {mode === 'batch' ? (
+            <Fragment>
+              <Button type="primary" onClick={()=>{}}>
+                <EditOutlined />
+                Edit
+              </Button>
+              <Popconfirm
+                title="Are you sure delete this task?"
+                onConfirm={deleteSelectedAlbums}
+                okText="确认"
+                cancelText="取消"
+                >
+                <Button type="danger" loading={deleting}>
+                  <DeleteOutlined />
+                  Delete
+                </Button>
+              </Popconfirm>
+              <Button type="ghost" onClick={()=>{setMode('single')}}>
+                <StopOutlined />
+                Cancel
+              </Button>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Button type="primary" onClick={addAlbum}>
+                <CloudUploadOutlined />
+                Add Album
+              </Button>
+              <Button type="primary" onClick={()=>{setMode('batch')}}>
+                <CheckSquareOutlined />
+                Batch Edit
+              </Button>
+            </Fragment>
+          )}
+        </Space>
+        <EditModalForm setReloadAlbums={setReloadAlbums} addAlbum={createAlbum} updateAlbum={updateAlbum} visible={isEditing} setVisible={setIsEditing} />
+        <List reloadAlbums={reloadAlbums} mode={mode} selectedAlbums={choosedAlbums} setSelectedAlbums={setSelectedAlbums} />
+      </Card>
+    </PageContainer>
   );
 }

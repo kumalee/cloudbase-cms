@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment, useCallback } from 'react';
-import { Button, Space, message } from 'antd';
+import { Tabs, Card, Button, Space, Popconfirm, message } from 'antd';
+import { PageContainer } from '@ant-design/pro-layout';
 import { CloudUploadOutlined, EditOutlined, CheckSquareOutlined, DeleteOutlined, StopOutlined } from '@ant-design/icons';
 import Uppy from '@uppy/core';
 import XHRUpload from '@uppy/xhr-upload';
@@ -14,12 +15,19 @@ import '@uppy/dashboard/dist/style.css'
 export default (): React.ReactNode => {
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState('single');
+  const [deleting, setDeleting] = useState(false);
   const [reloadPircture, setReloadPicture] = useState(new Date());
   const [choosedPictures, setChoosedPictures] = useState({ids:[], fileIDs:[]});
   const [theuppy, setUppy] = useState();
   const deletePhotos = useCallback(() => {
     if (choosedPictures.ids.length) {
-      deletePictures(choosedPictures);
+      setDeleting(true);
+      deletePictures(choosedPictures).then(res => {
+        setDeleting(false);
+        setReloadPicture(new Date());
+      }).catch(error => {
+        message.info('Oops: ' + JSON.stringify(error));
+      });
     } else {
       message.info("You haven't selected any picture");
     }
@@ -60,43 +68,52 @@ export default (): React.ReactNode => {
     setUpUppy()
   },[])
   return (
-    <Fragment>
-      <Space>
-        {mode === 'batch' ? (
-          <Fragment>
-            <Button type="primary" onClick={()=>{}}>
-              <EditOutlined />
-              Edit
-            </Button>
-            <Button type="danger" onClick={deletePhotos}>
-              <DeleteOutlined />
-              Delete
-            </Button>
-            <Button type="ghost" onClick={()=>{setMode('single')}}>
-              <StopOutlined />
-              Cancel
-            </Button>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <Button type="primary" onClick={()=>{setIsOpen(true)}}>
-              <CloudUploadOutlined />
-              Upload Files
-            </Button>
-            <Button type="primary" onClick={()=>{setMode('batch')}}>
-              <CheckSquareOutlined />
-              Batch Edit
-            </Button>
-          </Fragment>
-        )}
-      </Space>
-      <List reloadPircture={reloadPircture} mode={mode} selectedPictures={choosedPictures} setSelectedPictures={setSelectedPictures} />
-      {theuppy ? (<DashboardModal
-        uppy={theuppy}
-        closeModalOnClickOutside
-        open={isOpen}
-        onRequestClose={()=>{setIsOpen(false)}}
-      />) : null}
-    </Fragment>
+    <PageContainer>
+      <Card>
+        <Space>
+          {mode === 'batch' ? (
+            <Fragment>
+              <Button type="primary" onClick={()=>{}}>
+                <EditOutlined />
+                Edit
+              </Button>
+              <Popconfirm
+                title="Are you sure delete this task?"
+                onConfirm={deletePhotos}
+                okText="确认"
+                cancelText="取消"
+                >
+                <Button type="danger" loading={deleting}>
+                  <DeleteOutlined />
+                  Delete
+                </Button>
+              </Popconfirm>
+              <Button type="ghost" onClick={()=>{setMode('single')}}>
+                <StopOutlined />
+                Cancel
+              </Button>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Button type="primary" onClick={()=>{setIsOpen(true)}}>
+                <CloudUploadOutlined />
+                Upload Files
+              </Button>
+              <Button type="primary" onClick={()=>{setMode('batch')}}>
+                <CheckSquareOutlined />
+                Batch Edit
+              </Button>
+            </Fragment>
+          )}
+        </Space>
+        <List reloadPircture={reloadPircture} mode={mode} selectedPictures={choosedPictures} setSelectedPictures={setSelectedPictures} />
+        {theuppy ? (<DashboardModal
+          uppy={theuppy}
+          closeModalOnClickOutside
+          open={isOpen}
+          onRequestClose={()=>{setIsOpen(false)}}
+        />) : null}
+      </Card>
+    </PageContainer>
   );
 }
