@@ -14,7 +14,6 @@
     "koa": "^2.11.0",
     "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.2.1",
-    "node-vibrant": "^3.1.5",
     "serverless-http": "^2.3.0"
   },
   "author": "Erik Qin",

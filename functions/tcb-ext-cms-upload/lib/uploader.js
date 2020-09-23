@@ -2,7 +2,7 @@ const fs = require('fs')
 const dayjs = require('dayjs')
 const uuidv4 = require('uuid/v4')
 const path = require('path')
-const vibrant = require('node-vibrant')
+// const vibrant = require('node-vibrant')
 
 const upload = (app,file) => {
     return new Promise(async (resolve, reject) => {
@@ -12,12 +12,12 @@ const upload = (app,file) => {
             cloudPath: `tcb-cms/${day}/${uuidv4()}${path.extname(file.name)}`,
             fileContent: stream,
         })
-        const mainColor = await getMainColor(file.path);
+        // const mainColor = await getMainColor(file.path);
         console.log('file uploaded: ', res);
         resolve({
             fileName: file.name,
             fileID: res.fileID,
-            mainColor: mainColor,
+            // mainColor: mainColor,
         })
     })
 }
@@ -43,13 +43,13 @@ const getURL = async (app,files) => {
     return fileList
 }
 
-const getMainColor = async (file) => {
-  const colors = await vibrant.from(file).getPalette();
-  if (colors.Vibrant.population > colors.Muted.population) {
-    return colors.Vibrant.rgb;
-  }
-  return colors.Muted.rgb;
-}
+// const getMainColor = async (file) => {
+//   const colors = await vibrant.from(file).getPalette();
+//   if (colors.Vibrant.population > colors.Muted.population) {
+//     return colors.Vibrant.rgb;
+//   }
+//   return colors.Muted.rgb;
+// }
 
 const saveToDB = async (app, picture) => {
   const res = await app.callFunction({
