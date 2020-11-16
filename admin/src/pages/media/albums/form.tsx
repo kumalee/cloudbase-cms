@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, Input, Space, message } from 'antd';
 
 const layout = {
@@ -11,16 +11,25 @@ const tailLayout = {
 
 export default (props): React.ReactNode => {
   const [loading, setLoading] = useState(false);
-  const { visible, setVisible, addAlbum, setReloadAlbums } = props;
-
+  const [form] = Form.useForm();
+  const { visible, setVisible, addAlbum, setReloadAlbums, updateAlbum } = props;
+  const { id, name = '', description1 = '', description2 = '' } = props;
+  const initialValues = { id, name, description1, description2 };
+  useEffect(() => {
+    form.resetFields();
+  }, [id, name, description1, description2]);
   const handleCancel = () => {
     setVisible(false);
   };
-
   const onFinish = async (values) => {
     console.log('Success:', values);
     setLoading(true);
-    const res = await addAlbum(values);
+    let res;
+    if (!values.id) {
+      res = await addAlbum(values);
+    } else {
+      res = await updateAlbum(values);
+    }
     console.log(res);
     if (res.id) {
       setLoading(false);
@@ -43,8 +52,9 @@ export default (props): React.ReactNode => {
     >
       <Form
         {...layout}
+        form={form}
         name="basic"
-        initialValues={{ remember: true }}
+        initialValues={initialValues}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
@@ -69,7 +79,11 @@ export default (props): React.ReactNode => {
         >
           <Input />
         </Form.Item>
-
+        <Form.Item
+          name="id"
+        >
+          <Input type="hidden" />
+        </Form.Item>
         <Form.Item {...tailLayout}>
           <Space size="small">
             <Button type="primary" loading={loading} htmlType="submit">

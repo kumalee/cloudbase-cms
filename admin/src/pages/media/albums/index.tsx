@@ -13,6 +13,7 @@ export default (): React.ReactNode => {
   const [choosedAlbums, setChoosedAlbums] = useState([]);
   const [deleting, setDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [currentAlbum, setCurrentAlbum] = useState({});
   const deleteSelectedAlbums = useCallback(() => {
     if (choosedAlbums.length) {
       setDeleting(true);
@@ -30,8 +31,12 @@ export default (): React.ReactNode => {
     setChoosedAlbums(selecteds)
   }
   const addAlbum = () => {
+    setCurrentAlbum({});
     setIsEditing(true);
-    // setReloadAlbum(new Date());
+  }
+  const editAlbum = values => {
+    setCurrentAlbum(values);
+    setIsEditing(true);
   }
   return (
     <PageContainer>
@@ -72,8 +77,8 @@ export default (): React.ReactNode => {
             </Fragment>
           )}
         </Space>
-        <EditModalForm setReloadAlbums={setReloadAlbums} addAlbum={createAlbum} updateAlbum={updateAlbum} visible={isEditing} setVisible={setIsEditing} />
-        <List reloadAlbums={reloadAlbums} mode={mode} selectedAlbums={choosedAlbums} setSelectedAlbums={setSelectedAlbums} />
+        <EditModalForm {...currentAlbum} setReloadAlbums={setReloadAlbums} addAlbum={createAlbum} updateAlbum={updateAlbum} visible={isEditing} setVisible={setIsEditing} />
+        <List reloadAlbums={reloadAlbums} editAlbum={editAlbum} mode={mode} setCurrentAlbum={setCurrentAlbum} selectedAlbums={choosedAlbums} setSelectedAlbums={setSelectedAlbums} />
       </Card>
     </PageContainer>
   );
